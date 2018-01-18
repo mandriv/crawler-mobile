@@ -1,0 +1,3 @@
+rootProject.name = 'crawlermobile'
+
+include ':app'
