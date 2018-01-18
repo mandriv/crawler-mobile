@@ -18,15 +18,24 @@
     "start": "react-native start",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "test": "node node_modules/jest/bin/jest.js --watch"
+    "test": "node node_modules/jest/bin/jest.js --watch",
+    "rm_cache": "rm -fr $TMPDIR/react-*"
   },
   "jest": {
     "preset": "jest-expo"
+  },
+  "rnpm": {
+    "assets": [
+      "./assets/fonts"
+    ]
   },
   "dependencies": {
     "prop-types": "^15.6.0",
     "react": "16.0.0",
     "react-native": "0.50.3",
+    "react-native-config": "^0.11.5",
+    "react-native-linear-gradient": "^2.4.0",
+    "react-native-progress": "^3.4.0",
     "react-navigation": "^1.0.0-beta.25",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
