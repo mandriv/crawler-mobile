@@ -37,7 +37,7 @@ class Splash extends Component {
           </View>
           <View style={[styles.container, styles.bottomContainer]}>
             <Text style={styles.bottomText}>
-              {'\u00A92018 Wojciech Cichoradzki @mandriv'}
+              {'\u00A92018 Wojciech Cichoradzki'}
             </Text>
           </View>
         </LinearGradient>
@@ -50,8 +50,6 @@ class Splash extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    borderWidth: 1,
-    borderColor: 'red',
   },
   logoContainer: {
     paddingVertical: 30,
