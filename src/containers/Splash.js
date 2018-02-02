@@ -23,7 +23,7 @@ class Splash extends Component {
           style={styles.container}
         >
           <View style={[styles.container, styles.logoContainer, styles.centerize]}>
-            <Logo includeName />
+            <Logo />
           </View>
           <View style={[styles.container, styles.centerize]}>
             <View style={[styles.container, styles.centerize]}>
