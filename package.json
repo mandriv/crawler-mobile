@@ -17,7 +17,7 @@
   "scripts": {
     "start": "react-native start",
     "android": "react-native run-android",
-    "ios": "react-native run-ios",
+    "ios": "react-native run-ios --simulator=\"iPhone 5s\"",
     "test": "node node_modules/jest/bin/jest.js --watch",
     "rm_cache": "rm -fr $TMPDIR/react-*"
   },
@@ -36,6 +36,7 @@
     "react-native-config": "^0.11.5",
     "react-native-linear-gradient": "^2.4.0",
     "react-native-progress": "^3.4.0",
+    "react-native-vector-icons": "^4.5.0",
     "react-navigation": "^1.0.0-beta.25",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
