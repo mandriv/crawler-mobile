@@ -1,10 +1,6 @@
-import { NavigationActions } from 'react-navigation';
-
-// resets stack
-const resetAction = route => NavigationActions.reset({
-  index: 0,
-  actions: [NavigationActions.navigate({ routeName: route })],
-});
+import { resetAction } from '../config/router';
+import { authenticate, logout } from '../actions/authentication';
+import { receiveUser } from '../actions/user';
 
 // this is called when the redux-persist rehydration (restoring the store) process completes
 export function rehydrationCompleted() {
@@ -18,15 +14,27 @@ export function triggerInitialize() {
     try {
       dispatch(initializeApp());
     } catch (e) {
+      console.log(e);
       dispatch(resetAction('Login'));
     }
   };
 }
 
 export function initializeApp() {
-  return (dispatch) => {
-    setTimeout(() => {
-      dispatch(resetAction('Login'));
-    }, 1000);
+  return async (dispatch, getState) => {
+    const { token } = getState();
+    if (token) {
+      try {
+        const user = await authenticate(token);
+        dispatch(receiveUser(user));
+        dispatch(resetAction('Main'));
+        return;
+      } catch (error) {
+        dispatch(logout());
+        dispatch(resetAction('Login'));
+        return;
+      }
+    }
+    dispatch(resetAction('Login'));
   };
 }
