@@ -2,12 +2,14 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { StackNavigator, DrawerNavigator, NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Feather';
+import IconMaterial from 'react-native-vector-icons/MaterialCommunityIcons';
 // screens
 import SplashScreen from '../containers/Splash';
 import LoginScreen from '../containers/Login';
 import RegistrationScreen from '../containers/Registration';
 import DashboardScreen from '../containers/Dashboard';
 import ControlScreen from '../containers/Control';
+import CrawlersScreen from '../containers/Crawlers';
 // components
 import TouchableLogo from '../components/TouchableLogo';
 import DrawerButton from '../components/DrawerButton';
@@ -30,10 +32,11 @@ const MainDrawer = DrawerNavigator({
       drawerIcon: ({ tintColor }) => (<Icon name="home" color={tintColor} size={25}/>), // eslint-disable-line
     },
   },
-  Control: {
-    screen: ControlScreen,
+  Crawlers: {
+    screen: CrawlersScreen,
     navigationOptions: {
-      drawerLabel: 'Control'.toUpperCase(),
+      drawerLabel: 'Your Crawlers'.toUpperCase(),
+      drawerIcon: ({ tintColor }) => (<IconMaterial name="steering" color={tintColor} size={25}/>), // eslint-disable-line
     },
   },
 }, {
@@ -72,6 +75,13 @@ export const RootNavigator = StackNavigator({
       header: false,
       title: 'Registration',
       gesturesEnabled: true,
+    },
+  },
+  Control: {
+    screen: ControlScreen,
+    navigationOptions: {
+      header: false,
+      gesturesEnabled: false,
     },
   },
   Main: {
