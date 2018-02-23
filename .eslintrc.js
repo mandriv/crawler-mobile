@@ -24,6 +24,7 @@ module.exports = {
         "blocks": "never",
        }],
       "global-require": 0,
+      "no-underscore-dangle": 0,
       "react/forbid-prop-types": 0,
       "react/prefer-stateless-function": 0,
       "react/jsx-filename-extension": 0,
