@@ -21,9 +21,9 @@ import { resetAction } from '../config/router';
 class Login extends Component {
 
   state = {
-    email: '',
+    email: 'wojciech.cichoradzki@gmail.com',
     emailError: false,
-    password: '',
+    password: 'password',
     passwordError: false,
     loading: false,
   }
