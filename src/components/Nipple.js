@@ -64,10 +64,12 @@ export default class Nipple extends Component {
           nippleTop: INITIAL_TOP + d2y,
         });
         const power = Math.round((mag / OUTER_R) * 100);
-        const angleDeg = Number.parseFloat((angleRad * 180) / Math.PI).toFixed(1);
+        let theta = (angleRad * 180) / Math.PI;
+        theta = theta >= 0 ? theta : 360 + theta;
+        const angleDeg = Number.parseFloat(theta).toFixed(1);
         this.props.onChange({
-          power: `${power}%`,
-          angle: `${angleDeg} degrees`,
+          power,
+          angle: angleDeg,
         });
       },
       // Release
@@ -79,6 +81,10 @@ export default class Nipple extends Component {
         this.setState({
           nippleLeft: INITIAL_LEFT,
           nippleTop: INITIAL_TOP,
+        });
+        this.props.onChange({
+          power: 0,
+          angle: 90,
         });
       },
       // Cancelled
