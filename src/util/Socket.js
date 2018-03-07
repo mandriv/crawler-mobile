@@ -1,6 +1,16 @@
 import SocketIOClient from 'socket.io-client';
 import { API_HOST } from 'react-native-dotenv';
 
+export const SOC_JOIN = 'user-join';
+export const SOC_JOIN_FAIL = 'user-join-fail';
+export const SOC_REQUEST_ROOMS = 'request-room-list';
+export const SOC_REQUEST_ROOMS_FAIL = 'request-room-fail';
+export const SOC_ROOMS_LIST = 'room-list';
+export const SOC_CONTROLS = 'robot-control';
+export const SOC_JOIN_ROOM = 'user-join-room';
+export const SOC_JOIN_ROOM_FAIL = 'user-join-room-fail';
+export const SOC_ROOMS_LIST_UPDATE = 'room-list-update';
+
 export default class Socket {
 
   socket = null;
@@ -11,13 +21,12 @@ export default class Socket {
     });
   }
 
-  subscribeToMessages = (callback) => {
-    this.socket.on('message', message => callback(null, message));
+  subscribeTo = (action, callback) => {
+    this.socket.on(action, data => callback(data));
   }
 
-  sendControls = (controls) => {
-    console.log(controls);
-    this.socket.emit('robot-control', controls);
-  }
+  emit = action => this.socket.emit(action);
+
+  emitData = (action, data) => this.socket.emit(action, data);
 
 }
