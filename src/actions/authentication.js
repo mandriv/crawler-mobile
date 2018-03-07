@@ -47,7 +47,7 @@ export const authenticate = async (token) => {
   };
   const response = await fetch(`${API_HOST}/auth`, config);
   if (response.ok) {
-    const user = await response.json();
+    const { user } = await response.json();
     return new Promise(resolve => resolve(user));
   }
   const { error } = await response.json();
