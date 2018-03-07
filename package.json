@@ -33,6 +33,7 @@
     ]
   },
   "dependencies": {
+    "native-base": "^2.3.9",
     "prop-types": "^15.6.0",
     "react": "16.0.0",
     "react-native": "0.50.3",
