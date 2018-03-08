@@ -16,7 +16,11 @@ export default class CButton extends Component {
     return (
       <TouchableOpacity
         style={getContainerStyle(this.props)}
-        onPress={this.props.onPress}
+        onPress={() => {
+          if (!this.props.disabled) {
+              this.props.onPress();
+          }
+        }}
       >
         <View style={styles.textContainer}>
           {this.props.loading ?
@@ -67,6 +71,9 @@ const styles = StyleSheet.create({
   invertedText: {
     color: white,
   },
+  disabledText: {
+    color: '#7f8c8d',
+  },
 });
 
 const getContainerStyle = (props) => {
@@ -86,15 +93,17 @@ const getContainerStyle = (props) => {
 };
 
 const getTextStyle = (props) => {
-  const { inverted } = props;
+  const { inverted, disabled } = props;
   const {
     text,
     invertedText,
+    disabledText,
   } = styles;
   // Set container styling
   let textStyle = text;
   /* eslint-disable */
   textStyle = inverted ? StyleSheet.flatten([textStyle, invertedText]) : textStyle;
+  textStyle = disabled ? StyleSheet.flatten([textStyle, disabledText]) : textStyle;
   /* eslint-enable */
   return textStyle;
 };
@@ -105,6 +114,7 @@ CButton.propTypes = {
   noBorder: PropTypes.bool, // eslint-disable-line
   inverted: PropTypes.bool, // eslint-disable-line
   loading: PropTypes.bool,
+  disabled: PropTypes.bool,
 };
 
 CButton.defaultProps = {
@@ -112,4 +122,5 @@ CButton.defaultProps = {
   noBorder: false,
   inverted: false,
   loading: false,
+  disabled: false,
 };
