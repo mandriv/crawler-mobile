@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Container, Tab, Tabs } from 'native-base';
 
 import ActiveCrawlers from './ActiveCrawlers';
@@ -15,7 +16,7 @@ export default class Crawlers extends Component {
       <Container>
         <Tabs>
           <Tab heading="Active">
-            <ActiveCrawlers />
+            <ActiveCrawlers navigation={this.props.navigation}/>
           </Tab>
           <Tab heading="All">
             <ManageCrawlers />
@@ -26,3 +27,7 @@ export default class Crawlers extends Component {
   }
 
 }
+
+Crawlers.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};
