@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Text, View, StyleSheet } from 'react-native';
+import { StyleSheet, FlatList, Text } from 'react-native';
 import { connect } from 'react-redux';
 import Toast from 'react-native-simple-toast';
+import { Container, Content } from 'native-base';
+
+import RobotLiveItem from '../../components/RobotLiveItem';
 
 import Socket, {
   SOC_JOIN,
@@ -47,7 +50,6 @@ class ActiveCrawlers extends Component {
     });
 
     this.socket.subscribeTo(SOC_ROOMS_LIST_UPDATE, () => {
-      console.log('cache miss');
       this._requestRooms();
     })
   }
@@ -62,22 +64,49 @@ class ActiveCrawlers extends Component {
   render() {
     console.log(this.state);
     return (
-      <View style={styles.container}>
-        <Text>ActiveCrawlers screen</Text>
-      </View>
+      <Container>
+        <Content>
+          <FlatList
+            data={this.state.rooms}
+            keyExtractor={item => item.id}
+            ListEmptyComponent={
+              <Text style={styles.emptyListText}>
+                There are no crawlers available at this moment.
+              </Text>
+            }
+            renderItem={({ item }) => {
+              return (
+                <RobotLiveItem
+                  robotName={item.robot.name}
+                  status={item.robot.status}
+                  onControl={() => {
+                    this.props.navigation.navigate('Control', {
+                      socket: this.socket,
+                      roomName: item.name,
+                    });
+                  }}
+                />
+              );
+            }}
+          />
+        </Content>
+      </Container>
     );
   }
 
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  emptyListText: {
+    marginTop: '20%',
+    padding: '5%',
+    textAlign: 'center',
   },
 });
 
 ActiveCrawlers.propTypes = {
   user: PropTypes.object.isRequired,
+  navigation: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => {
