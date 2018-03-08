@@ -6,6 +6,7 @@ export const transparent = 'transparent';
 export const peterRiver = '#3498db';
 export const belizeHole = '#2980b9';
 export const cinnabar = '#E74C3C';
+export const emerald = '#2ecc71';
 
 // Transparents
 export function whiteTransparent(opacity = 1.0) {
