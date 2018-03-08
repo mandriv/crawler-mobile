@@ -5,19 +5,20 @@ import { connect } from 'react-redux';
 import Video from 'react-native-video';
 import Orientation from 'react-native-orientation';
 
-import Socket from '../util/Socket';
+import { SOC_JOIN_ROOM, SOC_CONTROLS } from '../util/Socket';
 import Nipple from '../components/Nipple';
 
 /*
   Control vehicle screen
 */
 
-class Control extends Component {
+export default class Control extends Component {
 
-  constructor() {
-    super();
-    this.socket = new Socket();
-    this.socket.subscribeToMessages((err, msg) => console.log(err, msg));
+  constructor(props) {
+    super(props);
+    this.socket = this.props.navigation.state.params.socket;
+    this.roomName = this.props.navigation.state.params.roomName;
+    this.socket.emitData(SOC_JOIN_ROOM, this.roomName);
   }
 
   state = {
@@ -61,7 +62,7 @@ class Control extends Component {
         />
         <View style={styles.nipple}>
           <Nipple
-            onChange={data => this.socket.sendControls(data)}
+            onChange={data => this.socket.emitData(SOC_CONTROLS, data)}
           />
         </View>
       </View>
@@ -90,19 +91,5 @@ const styles = StyleSheet.create({
 });
 
 Control.propTypes = {
-
+  navigation: PropTypes.object.isRequired,
 };
-
-const mapStateToProps = (state) => {
-  return {
-
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Control);
