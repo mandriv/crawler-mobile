@@ -3,7 +3,7 @@ import { SOC_CONTROLS } from './Socket';
 
 export default class ControlStateEmitter {
 
-  static INTERVAL_PERIOD = 50; // ms
+  INTERVAL_PERIOD = 50; // ms
 
   constructor(socket) {
     this.socket = socket;
@@ -18,13 +18,9 @@ export default class ControlStateEmitter {
     this.clock = setInterval(this.emitData, this.INTERVAL_PERIOD);
   }
 
-  stopEmitting = () => {
-    clearInterval(this.clock);
-  }
+  stopEmitting = () => clearInterval(this.clock);
 
-  emitData = () => {
-    this.socket.emitData(SOC_CONTROLS, this.data);
-  }
+  emitData = () => this.socket.emitData(SOC_CONTROLS, this.data);
 
   handleDataChange = (newData) => {
     this.data = newData;
