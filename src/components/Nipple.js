@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Text, View, StyleSheet, PanResponder, Animated } from 'react-native';
+import { StyleSheet, PanResponder, Animated } from 'react-native';
 
 import { peterRiver, belizeHole } from '../config/colours';
 
@@ -69,7 +69,7 @@ export default class Nipple extends Component {
         const angleDeg = Number.parseFloat(theta).toFixed(1);
         this.props.onChange({
           power,
-          angle: angleDeg,
+          angle: Number(angleDeg),
         });
       },
       // Release

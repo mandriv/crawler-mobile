@@ -66,7 +66,6 @@ export const register = async (registerBody) => {
     body: JSON.stringify(registerBody),
   };
   const response = await fetch(`${API_HOST}/users`, config);
-  console.log(response);
   if (response.ok) {
     const user = await response.json();
     return new Promise(resolve => resolve(user));
