@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, StyleSheet } from 'react-native';
-import { connect } from 'react-redux';
 import Video from 'react-native-video';
 import Orientation from 'react-native-orientation';
 
-import { SOC_JOIN_ROOM, SOC_CONTROLS } from '../util/Socket';
+import { SOC_JOIN_ROOM } from '../util/Socket';
+import ControlStateEmitter from '../util/ControlStateEmitter';
 import Nipple from '../components/Nipple';
 
 /*
@@ -19,17 +19,20 @@ export default class Control extends Component {
     this.socket = this.props.navigation.state.params.socket;
     this.roomName = this.props.navigation.state.params.roomName;
     this.socket.emitData(SOC_JOIN_ROOM, this.roomName);
+    this.controlsEmitter = new ControlStateEmitter(this.socket);
   }
 
   state = {
-    vidURL: 'https://abclive1-lh.akamaihd.net/i/abc_live10@420897/master.m3u8',
+    vidURL: 'http://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_1mb.mp4',
   }
 
   componentDidMount() {
+    this.controlsEmitter.startEmitting();
     Orientation.lockToLandscape();
   }
 
   componentWillUnmount() {
+    this.controlsEmitter.stopEmitting();
     Orientation.unlockAllOrientations();
   }
 
@@ -62,7 +65,7 @@ export default class Control extends Component {
         />
         <View style={styles.nipple}>
           <Nipple
-            onChange={data => this.socket.emitData(SOC_CONTROLS, data)}
+            onChange={this.controlsEmitter.handleDataChange}
           />
         </View>
       </View>
