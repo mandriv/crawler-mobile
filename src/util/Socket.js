@@ -1,5 +1,5 @@
 import SocketIOClient from 'socket.io-client';
-import { API_HOST } from 'react-native-dotenv';
+import { SOCKET_HOST } from 'react-native-dotenv';
 
 export const SOC_JOIN = 'user-join';
 export const SOC_JOIN_FAIL = 'user-join-fail';
@@ -16,7 +16,7 @@ export default class Socket {
   socket = null;
 
   constructor() {
-    this.socket = SocketIOClient(API_HOST, {
+    this.socket = SocketIOClient(SOCKET_HOST, {
       transports: ['websocket'],
     });
   }
