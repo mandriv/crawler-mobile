@@ -12,7 +12,6 @@ import CTextInput from '../components/CTextInput';
 import CButton from '../components/CButton';
 
 import { login } from '../actions/authentication';
-import { resetAction } from '../config/router';
 
 /*
   Login container
@@ -50,7 +49,7 @@ class Login extends Component {
       this.setState({ loading: true });
       await this.props.login(email, password);
       this.setState({ loading: false });
-      this.props.reset('Main');
+      this.props.navigation.navigate('Main');
     } catch (error) {
       // Server validation
       console.log(error);
@@ -167,7 +166,6 @@ const styles = StyleSheet.create({
 Login.propTypes = {
   navigation: PropTypes.object.isRequired,
   login: PropTypes.func.isRequired,
-  reset: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = () => {
@@ -179,7 +177,6 @@ const mapStateToProps = () => {
 const mapDispatchToProps = (dispatch) => {
   return {
     login: (email, password) => dispatch(login(email, password)),
-    reset: route => dispatch(resetAction(route)),
   };
 };
 

@@ -12,7 +12,6 @@ import CTextInput from '../components/CTextInput';
 import CButton from '../components/CButton';
 
 import { register, login } from '../actions/authentication';
-import { resetAction } from '../config/router';
 
 /*
   Registration container
@@ -142,7 +141,7 @@ class Registration extends Component {
       await register(reqBody);
       await this.props.login(email.value, password.main.value);
       this.setState({ loading: false });
-      this.props.reset('Main');
+      this.props.navigation.navigate('Main');
     } catch (error) {
       this.setState({ loading: false });
       Toast.show(error);
@@ -337,7 +336,6 @@ const styles = StyleSheet.create({
 Registration.propTypes = {
   navigation: PropTypes.object.isRequired,
   login: PropTypes.func.isRequired,
-  reset: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -349,7 +347,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     login: (email, password) => dispatch(login(email, password)),
-    reset: route => dispatch(resetAction(route)),
   };
 };
 

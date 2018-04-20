@@ -17,12 +17,6 @@ import DrawerButton from '../components/DrawerButton';
 import { primary } from './fonts';
 import { belizeHole } from './colours';
 
-// resets stack
-export const resetAction = route => NavigationActions.reset({
-  index: 0,
-  actions: [NavigationActions.navigate({ routeName: route })],
-});
-
 // drawer
 const MainDrawer = DrawerNavigator({
   Dashboard: {
