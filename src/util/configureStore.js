@@ -16,7 +16,7 @@ export default function configureStore() {
     key: 'crawler',
     version: 1,
     storage: AsyncStorage,
-    blacklist: ['nav', 'user'],
+    blacklist: ['user'],
     debug: process.env.NODE_ENV !== 'production',
   };
 

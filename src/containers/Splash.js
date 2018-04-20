@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import LinearGradient from 'react-native-linear-gradient';
 import * as Progress from 'react-native-progress';
 
+import { authenticate, logout } from '../actions/authentication';
+import { receiveUser } from '../actions/user';
 import { peterRiver, belizeHole, white, transparent } from '../config/colours';
 import Logo from '../components/Logo';
 
@@ -14,6 +16,36 @@ import Logo from '../components/Logo';
 */
 
 class Splash extends Component {
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.init();
+    }, 4000);
+  }
+
+  init = async () => {
+    /* eslint-disable */
+    const {
+      token,
+      navigation,
+      receiveUser,
+      logout,
+    } = this.props;
+    /* eslint-enable */
+    if (token) {
+      try {
+        const user = await authenticate(token);
+        receiveUser(user);
+        navigation.navigate('Main');
+        return;
+      } catch (error) {
+        logout();
+        navigation.navigate('Login');
+        return;
+      }
+    }
+    navigation.navigate('Login');
+  }
 
   render() {
     return (
@@ -84,13 +116,14 @@ Splash.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-
+    token: state.token,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-
+    logout: () => dispatch(logout()),
+    receiveUser: user => dispatch(receiveUser(user)),
   };
 };
 

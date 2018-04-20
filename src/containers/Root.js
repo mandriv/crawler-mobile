@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { StatusBar, View, StyleSheet } from 'react-native';
-import { addNavigationHelpers } from 'react-navigation';
-import { connect } from 'react-redux';
 
 import { RootNavigator } from '../config/router';
 
@@ -10,7 +7,7 @@ import { RootNavigator } from '../config/router';
   Root container
 */
 
-class Root extends Component {
+export default class Root extends Component {
 
   render() {
     return (
@@ -18,12 +15,7 @@ class Root extends Component {
         <StatusBar
           barStyle="light-content"
         />
-        <RootNavigator
-          navigation={addNavigationHelpers({
-            dispatch: this.props.dispatch,
-            state: this.props.nav,
-          })}
-        />
+        <RootNavigator />
       </View>
     );
   }
@@ -35,22 +27,3 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
-
-Root.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  nav: PropTypes.object.isRequired,
-};
-
-const mapStateToProps = (state) => {
-  return {
-    nav: state.nav,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    dispatch,
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Root);
