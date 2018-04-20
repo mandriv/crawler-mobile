@@ -83,6 +83,7 @@ class ActiveCrawlers extends Component {
                     this.props.navigation.navigate('Control', {
                       socket: this.socket,
                       roomName: item.name,
+                      robotID: item.robot.id,
                     });
                   }}
                 />
